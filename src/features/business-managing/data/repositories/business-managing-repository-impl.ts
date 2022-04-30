@@ -4,6 +4,8 @@ import BusinessName from "../../domain/entities/business-name";
 import BusinessManagingRepository from "../../domain/repositories/business-managing-repository";
 import BusinessManagingRemoteDataSource from "../data-sources/business-managing-remote-data-source";
 import BaseRepository from "../../../../core/types/BaseRepository";
+import BusinessDataUpdate from "../../domain/entities/business-data-update";
+import UnitDataUpdate from "../../domain/entities/unit-data-update";
 
 class BusinessManagingRepositoryImpl extends BaseRepository implements BusinessManagingRepository {
   // Aqui, teoricamente também teria uma data source local, para fazer cache das informações.
@@ -28,6 +30,24 @@ class BusinessManagingRepositoryImpl extends BaseRepository implements BusinessM
   searchAllBusinesses = async (id: string): Promise< BusinessName[] | Failure> => {
     try {
       return await this.remoteData.searchAllBusinesses(id)
+    } catch (error) {
+      return this.getNetworkFailureType(error)
+    }
+  }
+  
+
+  updateBusinessValues = async (update: BusinessDataUpdate): Promise<Boolean | Failure> => {
+    try {
+      return await this.remoteData.updateBusinessValues(update)
+    } catch (error) {
+      return this.getNetworkFailureType(error)
+    }
+  }
+  
+
+  updateUnitValues = async (update: UnitDataUpdate): Promise< Boolean | Failure> => {
+    try {
+      return await this.remoteData.updateUnitValues(update)
     } catch (error) {
       return this.getNetworkFailureType(error)
     }
