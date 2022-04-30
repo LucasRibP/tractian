@@ -1,8 +1,7 @@
+import BusinessName from "./business-name";
 import Unit from "./unit";
 
-interface Business {
-  id: number;
-  name: string;
+interface Business extends BusinessName{
   units: Unit[];
 }
 
