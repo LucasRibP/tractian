@@ -1,6 +1,6 @@
-export interface ServerError extends Error {
+export interface ServerError {
   errorMessage: string
-  networkCode: string
+  networkCode: number
 }
 
 export function isServerError(obj: any): obj is ServerError {

@@ -1,12 +1,12 @@
 import MachineName from "./machine-name";
-import WorkerName from "./worker-name";
+import UserName from "./user-name";
 
 interface Unit {
   id: number;
   name: string;
   companyId: number;
-  machineIds: MachineName[];
-  workerIds: WorkerName[];
+  machines: MachineName[];
+  users: UserName[];
 }
 
-export default Unit
+export default Unit;

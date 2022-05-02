@@ -3,7 +3,7 @@ export interface Failure {
 }
 
 export interface ServerFailure extends Failure {
-  networkCode: string
+  networkCode: number
 }
 
 export interface UntreatedErrorFailure extends Failure {
