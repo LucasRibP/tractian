@@ -75,13 +75,23 @@ class TractianDataSource implements BusinessManagingRemoteDataSource {
     return filteredBusinesses;
   };
 
+  // Ele só retorna true, pois caso o request falhe, ele levanta um erro, que é tratado pelo repository
   updateBusinessValues = async (
     update: BusinessDataUpdate
   ): Promise<Boolean> => {
+    if (update.name !== undefined) {
+      await this.instance.patch(`companies/${update.id}`, update);
+      return true;
+    }
     return true;
   };
 
+  // Ele só retorna true, pois caso o request falhe, ele levanta um erro, que é tratado pelo repository
   updateUnitValues = async (update: UnitDataUpdate): Promise<Boolean> => {
+    if (update.name !== undefined) {
+      await this.instance.patch(`units/${update.id}`, update);
+      return true;
+    }
     return true;
   };
 
@@ -128,7 +138,7 @@ class TractianDataSource implements BusinessManagingRemoteDataSource {
 
   _getAllCompaniesResponse = async (): Promise<CompanyResponse[]> => {
     try {
-      const res = await this.instance.get<CompanyResponse[]>("Companies");
+      const res = await this.instance.get<CompanyResponse[]>("companies");
       return res.data;
     } catch (error) {
       this._treatAxiosError(error);
@@ -138,7 +148,7 @@ class TractianDataSource implements BusinessManagingRemoteDataSource {
 
   _getCompanyResponseById = async (id: number): Promise<CompanyResponse> => {
     try {
-      const res = await this.instance.get<CompanyResponse>(`Companies/${id}`);
+      const res = await this.instance.get<CompanyResponse>(`companies/${id}`);
       return res.data;
     } catch (error) {
       this._treatAxiosError(error);
