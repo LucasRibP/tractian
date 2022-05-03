@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance } from "axios";
+import { singleton } from "tsyringe";
 import BusinessManagingRemoteDataSource from "../../../features/business-managing/data/data-sources/business-managing-remote-data-source";
 import Business from "../../../features/business-managing/domain/entities/business";
 import BusinessDataUpdate from "../../../features/business-managing/domain/entities/business-data-update";
@@ -21,6 +22,7 @@ import UserResponse, {
   userResponseError,
 } from "./server-responses/user-response";
 
+@singleton()
 class TractianDataSource implements BusinessManagingRemoteDataSource {
   instance: AxiosInstance;
   constructor() {
@@ -78,7 +80,7 @@ class TractianDataSource implements BusinessManagingRemoteDataSource {
   // Ele só retorna true, pois caso o request falhe, ele levanta um erro, que é tratado pelo repository
   updateBusinessValues = async (
     update: BusinessDataUpdate
-  ): Promise<Boolean> => {
+  ): Promise<boolean> => {
     if (update.name !== undefined) {
       await this.instance.patch(`companies/${update.id}`, update);
       return true;
@@ -87,7 +89,7 @@ class TractianDataSource implements BusinessManagingRemoteDataSource {
   };
 
   // Ele só retorna true, pois caso o request falhe, ele levanta um erro, que é tratado pelo repository
-  updateUnitValues = async (update: UnitDataUpdate): Promise<Boolean> => {
+  updateUnitValues = async (update: UnitDataUpdate): Promise<boolean> => {
     if (update.name !== undefined) {
       await this.instance.patch(`units/${update.id}`, update);
       return true;

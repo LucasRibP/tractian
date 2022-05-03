@@ -1,8 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import TractianDataSource from './core/network/tractian-api/tractian-data-source';
 
 function App() {
+  const trac = new TractianDataSource()
+
   return (
     <div className="App">
       <header className="App-header">

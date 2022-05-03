@@ -6,52 +6,62 @@ import BusinessManagingRemoteDataSource from "../data-sources/business-managing-
 import BaseRepository from "../../../../core/types/BaseRepository";
 import BusinessDataUpdate from "../../domain/entities/business-data-update";
 import UnitDataUpdate from "../../domain/entities/unit-data-update";
+import { autoInjectable, singleton } from "tsyringe";
 
-class BusinessManagingRepositoryImpl extends BaseRepository implements BusinessManagingRepository {
+@singleton()
+@autoInjectable()
+class BusinessManagingRepositoryImpl
+  extends BaseRepository
+  implements BusinessManagingRepository
+{
   // Aqui, teoricamente também teria uma data source local, para fazer cache das informações.
   // pois é reposabilidade da implementação do repositório decidir usar os dados online ou do cache.
   // Como isso está além do escopo desse projeto, o Repositório só vai tratar as excessões e retornar failures.
 
-  remoteData: BusinessManagingRemoteDataSource
+  remoteData: BusinessManagingRemoteDataSource;
 
-  constructor(remoteData: BusinessManagingRemoteDataSource) {
-    super()
-    this.remoteData = remoteData
+  constructor(remoteData?: BusinessManagingRemoteDataSource) {
+    super();
+    this.remoteData = remoteData!;
   }
 
-  getBusinessData = async (id: number): Promise< Business | Failure> => {
+  getBusinessData = async (id: number): Promise<Business | Failure> => {
     try {
-      return await this.remoteData.getBusinessData(id)
+      return await this.remoteData.getBusinessData(id);
     } catch (error) {
-      return this.getNetworkFailureType(error)
+      return this.getNetworkFailureType(error);
     }
-  }
+  };
 
-  searchAllBusinesses = async (id: string): Promise< BusinessName[] | Failure> => {
+  searchAllBusinesses = async (
+    id: string
+  ): Promise<BusinessName[] | Failure> => {
     try {
-      return await this.remoteData.searchAllBusinesses(id)
+      return await this.remoteData.searchAllBusinesses(id);
     } catch (error) {
-      return this.getNetworkFailureType(error)
+      return this.getNetworkFailureType(error);
     }
-  }
-  
+  };
 
-  updateBusinessValues = async (update: BusinessDataUpdate): Promise<Boolean | Failure> => {
+  updateBusinessValues = async (
+    update: BusinessDataUpdate
+  ): Promise<boolean | Failure> => {
     try {
-      return await this.remoteData.updateBusinessValues(update)
+      return await this.remoteData.updateBusinessValues(update);
     } catch (error) {
-      return this.getNetworkFailureType(error)
+      return this.getNetworkFailureType(error);
     }
-  }
-  
+  };
 
-  updateUnitValues = async (update: UnitDataUpdate): Promise< Boolean | Failure> => {
+  updateUnitValues = async (
+    update: UnitDataUpdate
+  ): Promise<boolean | Failure> => {
     try {
-      return await this.remoteData.updateUnitValues(update)
+      return await this.remoteData.updateUnitValues(update);
     } catch (error) {
-      return this.getNetworkFailureType(error)
+      return this.getNetworkFailureType(error);
     }
-  }
+  };
 }
 
-export default BusinessManagingRepositoryImpl
+export default BusinessManagingRepositoryImpl;
