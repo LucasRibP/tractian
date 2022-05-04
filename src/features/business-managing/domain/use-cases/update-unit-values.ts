@@ -1,15 +1,16 @@
-import { autoInjectable, singleton } from "tsyringe";
 import { Failure } from "../../../../core/error/failures";
 import UnitDataUpdate from "../entities/unit-data-update";
 import BusinessManagingRepository from "../repositories/business-managing-repository";
 
-@singleton()
-@autoInjectable()
 class UpdateUnitValues {
   repository: BusinessManagingRepository;
 
-  constructor(repository?: BusinessManagingRepository) {
-    this.repository = repository!;
+  constructor({
+    businessManagingRepository,
+  }: {
+    businessManagingRepository: BusinessManagingRepository;
+  }) {
+    this.repository = businessManagingRepository;
   }
 
   execute = async (update: UnitDataUpdate): Promise<boolean | Failure> => {

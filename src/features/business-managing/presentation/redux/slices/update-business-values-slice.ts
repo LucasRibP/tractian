@@ -1,15 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import BaseState from "../../../../../core/redux/base-state";
-import businessManagingUseCases from "../../../domain/use-cases/business-managing-use-cases";
 import { isFailure } from "../../../../../core/error/failures";
 import BusinessDataUpdate from "../../../domain/entities/business-data-update";
+import { container } from "../../../../../dependency-injections";
+import UpdateBusinessValues from "../../../domain/use-cases/update-business-values";
+
+const updateBusinessValuesUseCase = container.resolve<UpdateBusinessValues>(
+  "updateBusinessValues"
+);
 
 export const updateBusinessValuesThunk = createAsyncThunk(
   "updateBusinessValues/updateBusinessValuesThunkStatus",
   async (update: BusinessDataUpdate) => {
-    const res = await businessManagingUseCases.updateBusinessValues.execute(
-      update
-    );
+    const res = await updateBusinessValuesUseCase.execute(update);
     return res;
   }
 );

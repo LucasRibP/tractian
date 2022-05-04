@@ -1,15 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import BaseState from "../../../../../core/redux/base-state";
-import businessManagingUseCases from "../../../domain/use-cases/business-managing-use-cases";
 import { isFailure } from "../../../../../core/error/failures";
 import BusinessName from "../../../domain/entities/business-name";
+import { container } from "../../../../../dependency-injections";
+import SearchAllBusinesses from "../../../domain/use-cases/search-all-businesses";
+
+const searchAllBusinessesUseCase = container.resolve<SearchAllBusinesses>(
+  "searchAllBusinesses"
+);
 
 export const searchAllBusinessesThunk = createAsyncThunk(
   "searchAllBusinesses/searchAllBusinessesThunkStatus",
   async (query: string) => {
-    const res = await businessManagingUseCases.searchAllBusinesses.execute(
-      query
-    );
+    const res = await searchAllBusinessesUseCase.execute(query);
     return res;
   }
 );

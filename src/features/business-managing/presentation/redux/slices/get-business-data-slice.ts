@@ -1,13 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Business from "../../../domain/entities/business";
 import BaseState from "../../../../../core/redux/base-state";
-import businessManagingUseCases from "../../../domain/use-cases/business-managing-use-cases";
 import { isFailure } from "../../../../../core/error/failures";
+import { container } from "../../../../../dependency-injections";
+import GetBusinessData from "../../../domain/use-cases/get-business-data";
+
+const getBusinessDataUseCase =
+  container.resolve<GetBusinessData>("getBusinessData");
 
 export const getBusinessDataThunk = createAsyncThunk(
   "getBusinessData/getBusinessDataThunkStatus",
   async (id: number) => {
-    const res = await businessManagingUseCases.getBusinessData.execute(id);
+    const res = await getBusinessDataUseCase.execute(id);
     return res;
   }
 );

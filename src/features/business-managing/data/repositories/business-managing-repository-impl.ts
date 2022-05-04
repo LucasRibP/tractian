@@ -6,10 +6,7 @@ import BusinessManagingRemoteDataSource from "../data-sources/business-managing-
 import BaseRepository from "../../../../core/types/BaseRepository";
 import BusinessDataUpdate from "../../domain/entities/business-data-update";
 import UnitDataUpdate from "../../domain/entities/unit-data-update";
-import { autoInjectable, singleton } from "tsyringe";
 
-@singleton()
-@autoInjectable()
 class BusinessManagingRepositoryImpl
   extends BaseRepository
   implements BusinessManagingRepository
@@ -20,9 +17,13 @@ class BusinessManagingRepositoryImpl
 
   remoteData: BusinessManagingRemoteDataSource;
 
-  constructor(remoteData?: BusinessManagingRemoteDataSource) {
+  constructor({
+    businessManagingRemoteDataSource,
+  }: {
+    businessManagingRemoteDataSource: BusinessManagingRemoteDataSource;
+  }) {
     super();
-    this.remoteData = remoteData!;
+    this.remoteData = businessManagingRemoteDataSource;
   }
 
   getBusinessData = async (id: number): Promise<Business | Failure> => {

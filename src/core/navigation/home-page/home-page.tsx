@@ -5,7 +5,7 @@ import HomePageRoutes from "./home-page-routes";
 
 export default function HomePage() {
   return (
-    <MemoryRouter>
+    <MemoryRouter initialEntries={["/machine"]}>
       <App>
         <Body>
           <HomePageRoutes />
@@ -22,17 +22,21 @@ const App = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  background: #eeeeee;
 `;
 
 const Body = styled.div`
   flex: 1;
+  padding-bottom: 6vh;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const TabBarContainer = styled.div`
-  flex: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  background: #ffffff;
   border-top: solid 1px var(--adm-border-color);
 `;

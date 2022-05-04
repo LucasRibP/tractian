@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosInstance } from "axios";
-import { singleton } from "tsyringe";
 import BusinessManagingRemoteDataSource from "../../../features/business-managing/data/data-sources/business-managing-remote-data-source";
 import Business from "../../../features/business-managing/domain/entities/business";
 import BusinessDataUpdate from "../../../features/business-managing/domain/entities/business-data-update";
@@ -22,7 +21,6 @@ import UserResponse, {
   userResponseError,
 } from "./server-responses/user-response";
 
-@singleton()
 class TractianDataSource implements BusinessManagingRemoteDataSource {
   instance: AxiosInstance;
   constructor() {
