@@ -47,6 +47,10 @@ const SearchBarContainer = styled.div`
 
 const ResultListContainer = styled.div`
   padding-top: 7vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export default BusinessManagingPage;

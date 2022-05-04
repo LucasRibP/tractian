@@ -23,8 +23,8 @@ export default BusinessSearchResultList;
 
 const ListHolder = styled.div`
   margin-top: 1rem;
+  width: 90%;
 `;
 const CardContainer = styled.div`
-  width: 90vh;
   margin-bottom: 0.4rem;
 `;
