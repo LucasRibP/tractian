@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance } from "axios";
+import { Obj } from "reselect/es/types";
 import BusinessManagingRemoteDataSource from "../../../features/business-managing/data/data-sources/business-managing-remote-data-source";
 import Business from "../../../features/business-managing/domain/entities/business";
 import BusinessDataUpdate from "../../../features/business-managing/domain/entities/business-data-update";
@@ -6,6 +7,9 @@ import BusinessName from "../../../features/business-managing/domain/entities/bu
 import Unit from "../../../features/business-managing/domain/entities/unit";
 import UnitDataUpdate from "../../../features/business-managing/domain/entities/unit-data-update";
 import UserName from "../../../features/business-managing/domain/entities/user-name";
+import MachineManagingRemoteDataSource from "../../../features/machine-managing/data/data-sources/machine-managing-repository-data-source";
+import Machine from "../../../features/machine-managing/domain/entities/machine";
+import MachineDataUpdate from "../../../features/machine-managing/domain/entities/machine-data-update";
 import { ServerError } from "../../error/errors";
 import MachineHeader from "../../types/common-entities/machine-header";
 import AssetResponse, {
@@ -21,12 +25,19 @@ import UserResponse, {
   userResponseError,
 } from "./server-responses/user-response";
 
-class TractianDataSource implements BusinessManagingRemoteDataSource {
+class TractianDataSource
+  implements BusinessManagingRemoteDataSource, MachineManagingRemoteDataSource
+{
+  // Como no endpoint não tem nada guardando quem está delegado para a máquina, está sendo feito para propósitos de demonstração
+  // esse salvamento de forma local.
+  machineDelegation: Obj<number>;
   instance: AxiosInstance;
+
   constructor() {
     this.instance = axios.create({
       baseURL: "https://my-json-server.typicode.com/tractian/fake-api/",
     });
+    this.machineDelegation = {};
   }
 
   //! BusinessManaging Feature
@@ -90,6 +101,56 @@ class TractianDataSource implements BusinessManagingRemoteDataSource {
   updateUnitValues = async (update: UnitDataUpdate): Promise<boolean> => {
     if (update.name !== undefined) {
       await this.instance.patch(`units/${update.id}`, update);
+      return true;
+    }
+    return true;
+  };
+
+  //! MachineManaging Feature
+  getMachineData = async (id: number): Promise<Machine> => {
+    const resAsset: AssetResponse = await this._getAssetResponseById(id);
+
+    const resUnit: UnitResponse = await this._getUnitResponseById(
+      resAsset.unitId
+    );
+    const resCompany: CompanyResponse = await this._getCompanyResponseById(
+      resAsset.companyId
+    );
+
+    const delegateData: {
+      delegateId?: number;
+      delegateName?: string;
+    } = {};
+    if (resAsset.id in this.machineDelegation) {
+      delegateData.delegateId = this.machineDelegation[resAsset.id];
+      delegateData.delegateName = (
+        await this._getUserResponseById(delegateData.delegateId)
+      ).name;
+    }
+
+    return {
+      ...resAsset,
+      unitName: resUnit.name,
+      companyName: resCompany.name,
+      ...delegateData,
+    };
+  };
+
+  // Isso seria mais eficiente caso houvesse uma opção na API para mandar somente os nomes
+  // ou fazer buscas entre todas as empresas do usuário
+  searchAllMachines = async (query: string): Promise<MachineHeader[]> => {
+    const allMachines = await this._getAllAssetsResponse();
+    const searchFilter = query.trim().toLowerCase();
+    const filteredBusinesses: MachineHeader[] = allMachines.filter((item) =>
+      item.name.toLowerCase().includes(searchFilter)
+    );
+    return filteredBusinesses;
+  };
+
+  // Ele só retorna true, pois caso o request falhe, ele levanta um erro, que é tratado pelo repository
+  updateMachineValues = async (update: MachineDataUpdate): Promise<boolean> => {
+    if (update.name !== undefined) {
+      await this.instance.patch(`assets/${update.id}`, update);
       return true;
     }
     return true;

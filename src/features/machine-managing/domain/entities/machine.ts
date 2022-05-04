@@ -3,7 +3,7 @@ import AssetResponse from "../../../../core/network/tractian-api/server-response
 interface Machine extends AssetResponse {
   unitName: string;
   companyName: string;
-  delegateId: number;
-  delegateName: string;
+  delegateId?: number;
+  delegateName?: string;
 }
 export default Machine;

@@ -5,7 +5,7 @@ interface MachineDataUpdate {
   status?: string;
   healthscore?: number;
   name?: string;
-  specifications: {
+  specifications?: {
     maxTemp?: number;
     power?: number;
     rpm?: number;
