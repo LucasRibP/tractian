@@ -16,9 +16,7 @@ export const getBusinessDataThunk = createAsyncThunk(
   }
 );
 
-export interface GetBusinessDataState extends BaseState {
-  data?: Business;
-}
+export interface GetBusinessDataState extends BaseState<Business> {}
 
 const initialState: GetBusinessDataState = {
   loading: "idle",

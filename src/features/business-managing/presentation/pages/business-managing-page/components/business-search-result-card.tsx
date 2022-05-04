@@ -3,7 +3,7 @@ import { RightOutline } from "antd-mobile-icons";
 import { FC } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import BusinessName from "../../domain/entities/business-name";
+import BusinessName from "../../../../domain/entities/business-name";
 
 const BusinessSearchResultCard: FC<{ businessName: BusinessName }> = ({
   businessName,

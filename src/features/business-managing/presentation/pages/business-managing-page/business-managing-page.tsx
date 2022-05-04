@@ -2,9 +2,9 @@ import { SearchBar } from "antd-mobile";
 import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { AppDispatch } from "../../../../core/redux/store";
-import BusinessSearchResultList from "../components/business-search-result-list";
-import { searchAllBusinessesThunk } from "../redux/slices/search-all-businesses-slice";
+import { AppDispatch } from "../../../../../core/redux/store";
+import { searchAllBusinessesThunk } from "../../redux/slices/search-all-businesses-slice";
+import BusinessSearchResultList from "./components/business-search-result-list";
 
 const BusinessManagingPage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();

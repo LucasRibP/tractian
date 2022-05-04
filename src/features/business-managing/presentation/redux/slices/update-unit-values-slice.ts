@@ -16,13 +16,11 @@ export const updateUnitValuesThunk = createAsyncThunk(
   }
 );
 
-export interface UpdateUnitValuesState extends BaseState {
-  updated: boolean | null;
-}
+export interface UpdateUnitValuesState extends BaseState<boolean | null> {}
 
 const initialState: UpdateUnitValuesState = {
   loading: "idle",
-  updated: null,
+  data: null,
 };
 
 const updateUnitValuesSlice = createSlice({
@@ -30,24 +28,24 @@ const updateUnitValuesSlice = createSlice({
   initialState,
   reducers: {
     setUnitDataUpdatedAsNull(state) {
-      state.updated = null;
+      state.data = null;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(updateUnitValuesThunk.fulfilled, (state, action) => {
       if (isFailure(action.payload)) {
         state.error = action.payload.failureMessage;
-        state.updated = false;
+        state.data = false;
         state.loading = "failed";
       } else {
-        state.updated = true;
+        state.data = true;
         state.loading = "succeeded";
       }
     });
 
     builder.addCase(updateUnitValuesThunk.pending, (state) => {
       state.loading = "pending";
-      state.updated = null;
+      state.data = null;
     });
   },
 });

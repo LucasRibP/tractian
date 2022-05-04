@@ -17,13 +17,11 @@ export const updateBusinessValuesThunk = createAsyncThunk(
   }
 );
 
-export interface UpdateBusinessValuesState extends BaseState {
-  updated: boolean | null;
-}
+export interface UpdateBusinessValuesState extends BaseState<boolean | null> {}
 
 const initialState: UpdateBusinessValuesState = {
   loading: "idle",
-  updated: null,
+  data: null,
 };
 
 const updateBusinessValuesSlice = createSlice({
@@ -31,24 +29,24 @@ const updateBusinessValuesSlice = createSlice({
   initialState,
   reducers: {
     setBusinessDataUpdatedAsNull(state) {
-      state.updated = null;
+      state.data = null;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(updateBusinessValuesThunk.fulfilled, (state, action) => {
       if (isFailure(action.payload)) {
         state.error = action.payload.failureMessage;
-        state.updated = false;
+        state.data = false;
         state.loading = "failed";
       } else {
-        state.updated = true;
+        state.data = true;
         state.loading = "succeeded";
       }
     });
 
     builder.addCase(updateBusinessValuesThunk.pending, (state) => {
       state.loading = "pending";
-      state.updated = null;
+      state.data = null;
     });
   },
 });

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { RootState } from "../../../../core/redux/store";
+import { RootState } from "../../../../../../core/redux/store";
 import BusinessSearchResultCard from "./business-search-result-card";
 
 const BusinessSearchResultList: FC = () => {
@@ -10,11 +10,11 @@ const BusinessSearchResultList: FC = () => {
   );
   return (
     <ListHolder>
-      {businessNames.map((businessName) => (
+      {businessNames?.map((businessName) => (
         <CardContainer key={businessName.id}>
           <BusinessSearchResultCard businessName={businessName} />
         </CardContainer>
-      ))}
+      )) ?? <></>}
     </ListHolder>
   );
 };

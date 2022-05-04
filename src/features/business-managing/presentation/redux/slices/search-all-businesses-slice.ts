@@ -17,9 +17,7 @@ export const searchAllBusinessesThunk = createAsyncThunk(
   }
 );
 
-export interface SearchAllBusinessesState extends BaseState {
-  data: BusinessName[];
-}
+export interface SearchAllBusinessesState extends BaseState<BusinessName[]> {}
 
 const initialState: SearchAllBusinessesState = {
   loading: "idle",
