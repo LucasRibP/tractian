@@ -3,11 +3,11 @@ import BusinessManagingRemoteDataSource from "../../../features/business-managin
 import Business from "../../../features/business-managing/domain/entities/business";
 import BusinessDataUpdate from "../../../features/business-managing/domain/entities/business-data-update";
 import BusinessName from "../../../features/business-managing/domain/entities/business-name";
-import MachineName from "../../../features/business-managing/domain/entities/machine-name";
 import Unit from "../../../features/business-managing/domain/entities/unit";
 import UnitDataUpdate from "../../../features/business-managing/domain/entities/unit-data-update";
 import UserName from "../../../features/business-managing/domain/entities/user-name";
 import { ServerError } from "../../error/errors";
+import MachineHeader from "../../types/common-entities/machine-header";
 import AssetResponse, {
   assetResponseError,
 } from "./server-responses/asset-response";
@@ -44,7 +44,7 @@ class TractianDataSource implements BusinessManagingRemoteDataSource {
     ).filter((user) => (user.companyId = resBus.id));
 
     const units: Unit[] = resCurUnits.map((unitRes) => {
-      const unitAssets: MachineName[] = resCurAssets.filter(
+      const unitAssets: MachineHeader[] = resCurAssets.filter(
         (asset) => (asset.unitId = unitRes.id)
       );
       const unitUsers: UserName[] = resCurUsers.filter(

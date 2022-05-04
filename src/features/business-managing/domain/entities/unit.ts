@@ -1,11 +1,11 @@
-import MachineName from "./machine-name";
 import UserName from "./user-name";
+import MachineHeader from "../../../../core/types/common-entities/machine-header";
 
 interface Unit {
   id: number;
   name: string;
   companyId: number;
-  machines: MachineName[];
+  machines: MachineHeader[];
   users: UserName[];
 }
 
