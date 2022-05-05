@@ -14,7 +14,7 @@ interface MachineManagingRepository {
    */
   getMachineData(id: number): Promise<Machine | Failure>;
 
-  /** Recebe um objeto de update de um um máquina e atualiza os campos não nulos, retornando um
+  /** Recebe um objeto de update de uma máquina e atualiza os campos não nulos, retornando um
    * [boolean] indicando se houve sucesso no update ou uma [Failure], relativa ao erro ocorrido
    */
   updateMachineValues(update: MachineDataUpdate): Promise<boolean | Failure>;

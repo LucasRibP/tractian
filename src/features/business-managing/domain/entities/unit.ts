@@ -1,4 +1,4 @@
-import UserName from "./user-name";
+import UserName from "../../../../core/types/common-entities/user-name";
 import MachineHeader from "../../../../core/types/common-entities/machine-header";
 
 interface Unit {

@@ -6,7 +6,7 @@ import BusinessDataUpdate from "../../../features/business-managing/domain/entit
 import BusinessName from "../../../features/business-managing/domain/entities/business-name";
 import Unit from "../../../features/business-managing/domain/entities/unit";
 import UnitDataUpdate from "../../../features/business-managing/domain/entities/unit-data-update";
-import UserName from "../../../features/business-managing/domain/entities/user-name";
+import UserName from "../../types/common-entities/user-name";
 import MachineManagingRemoteDataSource from "../../../features/machine-managing/data/data-sources/machine-managing-repository-data-source";
 import Machine from "../../../features/machine-managing/domain/entities/machine";
 import MachineDataUpdate from "../../../features/machine-managing/domain/entities/machine-data-update";
