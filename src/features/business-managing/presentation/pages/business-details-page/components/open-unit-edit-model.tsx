@@ -7,7 +7,7 @@ export default async function openUnitEditModal(
   unit: Unit,
   onConfirm: (update: UnitDataUpdate) => void
 ) {
-  let query = "";
+  let query = unit.name;
   const result = await Modal.confirm({
     content: (
       <EditBox>

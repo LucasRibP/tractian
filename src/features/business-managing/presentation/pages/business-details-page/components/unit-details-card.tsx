@@ -34,6 +34,7 @@ const UnitDetailsCard: FC<{ unit: Unit }> = ({ unit }) => {
           <List.Item
             prefix={<HeartFill />}
             onClick={() => navigate(`machine/${machine.id}`)}
+            key={machine.id}
           >
             {machine.name}
           </List.Item>
@@ -44,6 +45,7 @@ const UnitDetailsCard: FC<{ unit: Unit }> = ({ unit }) => {
           <List.Item
             prefix={<SmileFill />}
             onClick={() => navigate(`user/${user.id}`)}
+            key={user.id}
           >
             {user.name}
           </List.Item>

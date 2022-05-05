@@ -7,7 +7,7 @@ export default async function openBusinessEditModal(
   business: Business,
   onConfirm: (update: BusinessDataUpdate) => void
 ) {
-  let query = "";
+  let query = business.name;
   const result = await Modal.confirm({
     content: (
       <EditBox>

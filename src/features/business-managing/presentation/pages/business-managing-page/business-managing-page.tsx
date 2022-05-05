@@ -1,5 +1,5 @@
 import { SearchBar } from "antd-mobile";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { AppDispatch } from "../../../../../core/redux/store";
@@ -8,15 +8,20 @@ import BusinessSearchResultList from "./components/business-search-result-list";
 
 const BusinessManagingPage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    dispatch(searchAllBusinessesThunk(""));
-  });
+    dispatch(searchAllBusinessesThunk(searchQuery));
+  }, [dispatch, searchQuery]);
 
   return (
     <Page>
       <SearchBarContainer>
-        <SearchBar placeholder="Busca" />
+        <SearchBar
+          placeholder="Busca"
+          value={searchQuery}
+          onChange={(value) => setSearchQuery(value)}
+        />
       </SearchBarContainer>
       <ResultListContainer>
         <BusinessSearchResultList />

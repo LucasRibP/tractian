@@ -41,10 +41,10 @@ class TractianApiBusinessManagingRemoteDataSource
 
     const units: Unit[] = resCurUnits.map((unitRes) => {
       const unitAssets: MachineHeader[] = resCurAssets.filter(
-        (asset) => (asset.unitId = unitRes.id)
+        (asset) => asset.unitId === unitRes.id
       );
       const unitUsers: UserName[] = resCurUsers.filter(
-        (user) => (user.unitId = resBus.id)
+        (user) => user.unitId === unitRes.id
       );
       const unit: Unit = {
         ...unitRes,

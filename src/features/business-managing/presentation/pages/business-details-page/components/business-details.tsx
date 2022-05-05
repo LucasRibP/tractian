@@ -10,6 +10,7 @@ import openBusinessEditModal from "./open-business-edit-modal";
 import UnitDetailsCard from "./unit-details-card";
 
 const BusinessDetails: FC<{ business: Business }> = ({ business }) => {
+  console.log(business);
   const dispatch = useDispatch<AppDispatch>();
   const [businessDetailsTitle, setBusinessDetailsTitle] = useState(
     business.name
@@ -41,7 +42,7 @@ const BusinessDetails: FC<{ business: Business }> = ({ business }) => {
 
       <UnitListContainer>
         {business.units.map((unit) => (
-          <UnitCardContainer>
+          <UnitCardContainer key={unit.id}>
             <UnitDetailsCard unit={unit} />
           </UnitCardContainer>
         ))}
