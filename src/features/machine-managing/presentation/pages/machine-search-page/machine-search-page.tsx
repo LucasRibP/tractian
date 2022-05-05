@@ -3,15 +3,15 @@ import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { AppDispatch } from "../../../../../core/redux/store";
-import { searchAllBusinessesThunk } from "../../redux/slices/search-all-businesses-slice";
-import BusinessSearchResultList from "./components/business-search-result-list";
+import { searchAllMachinesThunk } from "../../redux/slices/search-all-machines-slice";
+import MachineSearchResultList from "./components/machine-search-result-list";
 
-const BusinessSearchPage: FC = () => {
+const MachineSearchPage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    dispatch(searchAllBusinessesThunk(searchQuery));
+    dispatch(searchAllMachinesThunk(searchQuery));
   }, [dispatch, searchQuery]);
 
   return (
@@ -24,7 +24,7 @@ const BusinessSearchPage: FC = () => {
         />
       </SearchBarContainer>
       <ResultListContainer>
-        <BusinessSearchResultList />
+        <MachineSearchResultList />
       </ResultListContainer>
     </Page>
   );
@@ -59,4 +59,4 @@ const ResultListContainer = styled.div`
   align-items: center;
 `;
 
-export default BusinessSearchPage;
+export default MachineSearchPage;
