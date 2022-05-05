@@ -47,6 +47,12 @@ const LoadingComponentChooser: FC<BaseState<Business>> = ({
   }
 };
 
-const Page = styled.div``;
+const Page = styled.div`
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export default BusinessDetailsPage;

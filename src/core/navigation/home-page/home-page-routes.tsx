@@ -9,7 +9,10 @@ const HomePageRoutes: FC = () => (
     <Route path="business/:id" element={<BusinessDetailsPage />} />
 
     <Route path="machine" element={<></>} />
+    <Route path="machine/:id" element={<></>} />
+
     <Route path="user" element={<></>} />
+    <Route path="user/:id" element={<></>} />
   </Routes>
 );
 
