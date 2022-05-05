@@ -22,6 +22,7 @@ const BusinessSearchResultList: FC = () => {
 export default BusinessSearchResultList;
 
 const ListHolder = styled.div`
+  min-height: 85vh;
   margin-top: 1rem;
   width: 90%;
 `;

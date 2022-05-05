@@ -13,7 +13,7 @@ const BusinessSearchResultCard: FC<{ businessName: BusinessName }> = ({
     <Card
       title={<TitleContainer>{businessName.name}</TitleContainer>}
       extra={<RightOutline />}
-      onClick={() => navigate(`business/${businessName.id}`)}
+      onClick={() => navigate(`${businessName.id}`)}
     />
   );
 };
