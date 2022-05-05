@@ -6,7 +6,7 @@ import { AppDispatch } from "../../../../../core/redux/store";
 import { searchAllBusinessesThunk } from "../../redux/slices/search-all-businesses-slice";
 import BusinessSearchResultList from "./components/business-search-result-list";
 
-const BusinessManagingPage: FC = () => {
+const BusinessSearchPage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -58,4 +58,4 @@ const ResultListContainer = styled.div`
   align-items: center;
 `;
 
-export default BusinessManagingPage;
+export default BusinessSearchPage;

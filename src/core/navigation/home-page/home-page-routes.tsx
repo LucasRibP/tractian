@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import BusinessDetailsPage from "../../../features/business-managing/presentation/pages/business-details-page/business-details-page";
-import BusinessManagingPage from "../../../features/business-managing/presentation/pages/business-managing-page/business-managing-page";
+import BusinessSearchPage from "../../../features/business-managing/presentation/pages/business-search-page/business-search-page";
 
 const HomePageRoutes: FC = () => (
   <Routes>
-    <Route path="business" element={<BusinessManagingPage />} />
+    <Route path="business" element={<BusinessSearchPage />} />
     <Route path="business/:id" element={<BusinessDetailsPage />} />
 
     <Route path="machine" element={<></>} />
