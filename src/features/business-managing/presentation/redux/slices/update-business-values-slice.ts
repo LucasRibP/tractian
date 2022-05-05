@@ -51,4 +51,7 @@ const updateBusinessValuesSlice = createSlice({
   },
 });
 
+export const { setBusinessDataUpdatedAsNull } =
+  updateBusinessValuesSlice.actions;
+
 export default updateBusinessValuesSlice.reducer;
