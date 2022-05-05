@@ -7,7 +7,7 @@ import BusinessName from "../../../features/business-managing/domain/entities/bu
 import Unit from "../../../features/business-managing/domain/entities/unit";
 import UnitDataUpdate from "../../../features/business-managing/domain/entities/unit-data-update";
 import UserName from "../../types/common-entities/user-name";
-import MachineManagingRemoteDataSource from "../../../features/machine-managing/data/data-sources/machine-managing-repository-data-source";
+import MachineManagingRemoteDataSource from "../../../features/machine-managing/data/data-sources/machine-managing-remote-data-source";
 import Machine from "../../../features/machine-managing/domain/entities/machine";
 import MachineDataUpdate from "../../../features/machine-managing/domain/entities/machine-data-update";
 import { ServerError } from "../../error/errors";
@@ -24,9 +24,15 @@ import UnitResponse, {
 import UserResponse, {
   userResponseError,
 } from "./server-responses/user-response";
+import UserManagingRemoteDataSource from "../../../features/user-managing/data/data-sources/user-managing-remote-data-source";
+import User from "../../../features/user-managing/domain/entities/user";
+import UserDataUpdate from "../../../features/user-managing/domain/entities/user-data-update";
 
 class TractianDataSource
-  implements BusinessManagingRemoteDataSource, MachineManagingRemoteDataSource
+  implements
+    BusinessManagingRemoteDataSource,
+    MachineManagingRemoteDataSource,
+    UserManagingRemoteDataSource
 {
   // Como no endpoint não tem nada guardando quem está delegado para a máquina, está sendo feito para propósitos de demonstração
   // esse salvamento de forma local.
@@ -141,18 +147,60 @@ class TractianDataSource
   searchAllMachines = async (query: string): Promise<MachineHeader[]> => {
     const allMachines = await this._getAllAssetsResponse();
     const searchFilter = query.trim().toLowerCase();
-    const filteredBusinesses: MachineHeader[] = allMachines.filter((item) =>
+    const filteredMachines: MachineHeader[] = allMachines.filter((item) =>
       item.name.toLowerCase().includes(searchFilter)
     );
-    return filteredBusinesses;
+    return filteredMachines;
   };
 
   // Ele só retorna true, pois caso o request falhe, ele levanta um erro, que é tratado pelo repository
   updateMachineValues = async (update: MachineDataUpdate): Promise<boolean> => {
-    if (update.name !== undefined) {
-      await this.instance.patch(`assets/${update.id}`, update);
-      return true;
+    await this.instance.patch(`assets/${update.id}`, update);
+    return true;
+  };
+
+  //! UserManaging Feature
+  getUserData = async (id: number): Promise<User> => {
+    const resUser: UserResponse = await this._getUserResponseById(id);
+
+    const resUnit: UnitResponse = await this._getUnitResponseById(
+      resUser.unitId
+    );
+    const resCompany: CompanyResponse = await this._getCompanyResponseById(
+      resUser.companyId
+    );
+
+    const delegateMachines: MachineHeader[] = [];
+    for (let [machineId, userId] of Object.entries(this.machineDelegation)) {
+      if (id === userId) {
+        delegateMachines.push(
+          await this._getAssetResponseById(Number.parseInt(machineId))
+        );
+      }
     }
+
+    return {
+      ...resUser,
+      unitName: resUnit.name,
+      companyName: resCompany.name,
+      delegatedMachines: delegateMachines,
+    };
+  };
+
+  // Isso seria mais eficiente caso houvesse uma opção na API para mandar somente os nomes
+  // ou fazer buscas entre todas as empresas do usuário
+  searchAllUsers = async (query: string): Promise<UserName[]> => {
+    const allUsers = await this._getAllUsersResponse();
+    const searchFilter = query.trim().toLowerCase();
+    const filteredUsers: UserName[] = allUsers.filter((item) =>
+      item.name.toLowerCase().includes(searchFilter)
+    );
+    return filteredUsers;
+  };
+
+  // Ele só retorna true, pois caso o request falhe, ele levanta um erro, que é tratado pelo repository
+  updateUserValues = async (update: UserDataUpdate): Promise<boolean> => {
+    await this.instance.patch(`users/${update.id}`, update);
     return true;
   };
 

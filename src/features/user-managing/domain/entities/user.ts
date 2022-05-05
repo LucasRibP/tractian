@@ -4,6 +4,6 @@ import MachineHeader from "../../../../core/types/common-entities/machine-header
 interface User extends UserResponse {
   unitName: string;
   companyName: string;
-  delegatedMachine: MachineHeader;
+  delegatedMachines: MachineHeader[];
 }
 export default User;

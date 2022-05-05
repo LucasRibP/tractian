@@ -1,7 +1,7 @@
 import { Failure } from "../../../../core/error/failures";
 import BaseRepository from "../../../../core/types/BaseRepository";
 import MachineManagingRepository from "../../domain/repositories/machine-managing-repository";
-import MachineManagingRemoteDataSource from "../data-sources/machine-managing-repository-data-source";
+import MachineManagingRemoteDataSource from "../data-sources/machine-managing-remote-data-source";
 import Machine from "../../domain/entities/machine";
 import MachineHeader from "../../../../core/types/common-entities/machine-header";
 import MachineDataUpdate from "../../domain/entities/machine-data-update";
