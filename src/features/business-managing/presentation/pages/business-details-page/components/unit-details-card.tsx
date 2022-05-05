@@ -1,19 +1,34 @@
 import { Button, Card, List } from "antd-mobile";
-import {
-  EditSOutline,
-  HeartFill,
-  SearchOutline,
-  SmileFill,
-} from "antd-mobile-icons";
-import { FC } from "react";
+import { EditSOutline, HeartFill, SmileFill } from "antd-mobile-icons";
+import { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { AppDispatch } from "../../../../../../core/redux/store";
 import Unit from "../../../../domain/entities/unit";
+import { updateUnitValuesThunk } from "../../../redux/slices/update-unit-values-slice";
+import openUnitEditModal from "./open-unit-edit-model";
 
 const UnitDetailsCard: FC<{ unit: Unit }> = ({ unit }) => {
   const navigate = useNavigate();
+  const [unitCardName, setUnitCardName] = useState(unit.name);
+  const dispatch = useDispatch<AppDispatch>();
   return (
-    <Card title={<UnitDetailsCardTitle title={unit.name} onEdit={() => {}} />}>
+    <Card
+      title={
+        <UnitDetailsCardTitle
+          title={unitCardName}
+          onEdit={() =>
+            openUnitEditModal(unit, (update) => {
+              dispatch(updateUnitValuesThunk(update));
+              if (update.name !== undefined) {
+                setUnitCardName(update.name);
+              }
+            })
+          }
+        />
+      }
+    >
       <List header="Máquinas">
         {unit.machines.map((machine) => (
           <List.Item
@@ -46,7 +61,7 @@ const UnitDetailsCardTitle: FC<{ title: string; onEdit(): void }> = ({
     <UnitDetailsCardTitleContailer>
       <CardTitle>{title}</CardTitle>
       <EditButtonContainer>
-        <Button shape="rounded">
+        <Button shape="rounded" onClick={onEdit}>
           <EditSOutline />
         </Button>
       </EditButtonContainer>

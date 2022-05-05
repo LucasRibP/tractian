@@ -1,18 +1,36 @@
 import { Button, Divider } from "antd-mobile";
 import { EditSOutline } from "antd-mobile-icons";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { AppDispatch } from "../../../../../../core/redux/store";
 import Business from "../../../../domain/entities/business";
+import { updateBusinessValuesThunk } from "../../../redux/slices/update-business-values-slice";
+import openBusinessEditModal from "./open-business-edit-modal";
 import UnitDetailsCard from "./unit-details-card";
 
 const BusinessDetails: FC<{ business: Business }> = ({ business }) => {
-  console.log(business);
+  const dispatch = useDispatch<AppDispatch>();
+  const [businessDetailsTitle, setBusinessDetailsTitle] = useState(
+    business.name
+  );
+
   return (
     <>
       <BusinessTitleContainer>
-        <BusinessTitle>{business.name}</BusinessTitle>
+        <BusinessTitle>{businessDetailsTitle}</BusinessTitle>
         <EditBusinessTitleButtonContainer>
-          <Button shape="rounded">
+          <Button
+            shape="rounded"
+            onClick={() =>
+              openBusinessEditModal(business, (update) => {
+                dispatch(updateBusinessValuesThunk(update));
+                if (update.name !== undefined) {
+                  setBusinessDetailsTitle(update.name);
+                }
+              })
+            }
+          >
             <EditSOutline />
           </Button>
         </EditBusinessTitleButtonContainer>
