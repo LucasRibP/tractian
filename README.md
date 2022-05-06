@@ -60,6 +60,7 @@ As alterações que fiz na arquitetura são as seguintes:
 - Awilix (Injeção de Dependências)
 - Highcharts (Gráficos)
 - Ant Design Mobile (UI)
+- Styled Components (Styling)
 
 ## Considerações Finais
 O projeto está disponível para acesso no GitHub Pages. Obrigado pelo desafio :)
