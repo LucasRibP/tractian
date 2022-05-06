@@ -1,4 +1,4 @@
-import { Button, Card, List } from "antd-mobile";
+import { Avatar, Button, Card, List } from "antd-mobile";
 import { EditSOutline, HeartFill, SmileFill } from "antd-mobile-icons";
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -32,7 +32,7 @@ const UnitDetailsCard: FC<{ unit: Unit }> = ({ unit }) => {
       <List header="Máquinas">
         {unit.machines.map((machine) => (
           <List.Item
-            prefix={<HeartFill />}
+            prefix={<Avatar src={machine.image} style={{ "--size": "24px" }} />}
             onClick={() => navigate(`../../machine/${machine.id}`)}
             key={machine.id}
           >

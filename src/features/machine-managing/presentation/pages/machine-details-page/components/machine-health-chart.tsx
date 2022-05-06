@@ -18,7 +18,7 @@ const MachineHealthChart: FC<{ percentage: number }> = ({ percentage }) => {
 
     pane: {
       center: ["50%", "85%"],
-      size: "140%",
+      size: "100%",
       startAngle: -90,
       endAngle: 90,
       background: {
@@ -54,7 +54,7 @@ const MachineHealthChart: FC<{ percentage: number }> = ({ percentage }) => {
       min: 0,
       max: 100,
       title: {
-        text: "Saúde da Máquina",
+        text: "Saúde",
       },
     },
 
