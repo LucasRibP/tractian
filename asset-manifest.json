@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/tractian/static/css/main.4d224e63.css",
+    "main.js": "/tractian/static/js/main.3592096a.js",
+    "index.html": "/tractian/index.html",
+    "main.4d224e63.css.map": "/tractian/static/css/main.4d224e63.css.map",
+    "main.3592096a.js.map": "/tractian/static/js/main.3592096a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4d224e63.css",
+    "static/js/main.3592096a.js"
+  ]
+}
