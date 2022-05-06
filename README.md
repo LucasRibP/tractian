@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# Coding Challenge - Tractian
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## DESAFIO
+Construir uma aplicação web mobile que mostre todos os dados e ações possíveis
+que utilizam a API criada no desafio back-end.
 
-## Available Scripts
+Importante:
+- Mostrar todas as características do ativos;
+- Mostrar empresas, unidades e usuários;
+- Ações como delegar responsável, atualizar ativo, empresa, unidade e usuários;
+- Utilizar gráficos para mostrar os níveis de saúde, status e etc.
+- Consumir API (https://github.com/tractian/fake-api)
 
-In the project directory, you can run:
+Obrigatório:
+- Engine (React)
+- Gráficos (Highcharts)
+- Ant Design Mobile
 
-### `yarn start`
+Diferenciais:
+- Typescript;
+- Padrão de Projetos(Código Limpo/Arquitetura Limpa);
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+!! Faça apenas o desafio para resoluções de celulares e orientação na vertical.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `yarn test`
+A primeira coisa que eu fiz foi dividir as demandas do projeto em "Features", cada uma com os seus casos de uso. A divisão escolhida foi a seguinte:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Gerenciar dados de máquinas:
+  - Buscar entre todas as máquinas.
+  - Mostrar detalhes de uma máquina.
+  - Modificar dados de uma máquina.
+- Gerenciar dados empresariais: 
+  - Buscar entre todas em empresas.
+  - Mostrar detralhes de uma empresa e suas unidades respectivas.
+  - Modificar dados de uma empresa.
+  - Modificar dados de uma unidade.
+- Gerenciar dados de usuários:
+-   Buscar entre todos os usuários.
+-   Mostrar detalhes de um usuário.
+-   Modificar dados de um usuário.
+-   Delegar maquinas para usuários.
 
-### `yarn build`
+## Arquitetura
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Para a arquitetura, eu adapter o padrão de CLEAN Archtecture do ResoCoder (https://resocoder.com/2019/08/27/flutter-tdd-clean-architecture-course-1-explanation-project-structure/), que divide o projeto em core e features e segue o padrão abaixo para cada feature:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![image](https://user-images.githubusercontent.com/44446242/167227146-af973687-eddc-4640-a789-cc00b294b1d9.png)
 
-### `yarn eject`
+As alterações que fiz na arquitetura são as seguintes:
+- Ao invés do BloC do Dart, eu usei o Redux Toolkit.
+- No projeto dele, ele divide os "widgets" em duas pastas, "pages" e "widget". Eu optei por usar só a pasta "pages" e fazer uma pasta por página, com os seus componentes respectivos dentro de uma pasta "components" própria.
+- Ao invés de usar "entities" e "models", como foi tudo implementado com interfaces do Typescript, eu preferi usar somente as "entities" para as duas camadas.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Bibliotecas Usadas
+- React
+- Redux Toolkit (Gerenciamento do Estado)
+- Axios (Comunicação com API)
+- Awilix (Injeção de Dependências)
+- Highcharts (Gráficos)
+- Ant Design Mobile (UI)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Considerações Finais
+O projeto está disponível para acesso no GitHub Pages. Obrigado pelo desafio :)
