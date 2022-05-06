@@ -33,7 +33,7 @@ const UnitDetailsCard: FC<{ unit: Unit }> = ({ unit }) => {
         {unit.machines.map((machine) => (
           <List.Item
             prefix={<HeartFill />}
-            onClick={() => navigate(`machine/${machine.id}`)}
+            onClick={() => navigate(`../../machine/${machine.id}`)}
             key={machine.id}
           >
             {machine.name}
@@ -44,7 +44,7 @@ const UnitDetailsCard: FC<{ unit: Unit }> = ({ unit }) => {
         {unit.users.map((user) => (
           <List.Item
             prefix={<SmileFill />}
-            onClick={() => navigate(`user/${user.id}`)}
+            onClick={() => navigate(`../../user/${user.id}`)}
             key={user.id}
           >
             {user.name}
