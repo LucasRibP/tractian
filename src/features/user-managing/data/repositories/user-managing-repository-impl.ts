@@ -5,6 +5,8 @@ import UserManagingRemoteDataSource from "../data-sources/user-managing-remote-d
 import User from "../../domain/entities/user";
 import UserName from "../../../../core/types/common-entities/user-name";
 import UserDataUpdate from "../../domain/entities/user-data-update";
+import MachineHeader from "../../../../core/types/common-entities/machine-header";
+import MachineUserDelegation from "../../domain/entities/machine-user-delegation";
 
 class UserManagingRepositoryImpl
   extends BaseRepository
@@ -46,6 +48,26 @@ class UserManagingRepositoryImpl
   ): Promise<boolean | Failure> => {
     try {
       return await this.remoteData.updateUserValues(update);
+    } catch (error) {
+      return this.getNetworkFailureType(error);
+    }
+  };
+
+  getMachinesAvaliableForUser = async (
+    user: User
+  ): Promise<MachineHeader[] | Failure> => {
+    try {
+      return await this.remoteData.getMachinesAvaliableForUser(user);
+    } catch (error) {
+      return this.getNetworkFailureType(error);
+    }
+  };
+
+  delegateUserForMachine = async (
+    delegation: MachineUserDelegation
+  ): Promise<boolean | Failure> => {
+    try {
+      return await this.remoteData.delegateUserForMachine(delegation);
     } catch (error) {
       return this.getNetworkFailureType(error);
     }

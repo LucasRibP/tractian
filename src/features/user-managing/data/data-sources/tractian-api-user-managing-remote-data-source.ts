@@ -4,6 +4,7 @@ import UserResponse from "../../../../core/network/tractian-api/server-responses
 import TractianDataSource from "../../../../core/network/tractian-api/tractian-data-source";
 import MachineHeader from "../../../../core/types/common-entities/machine-header";
 import UserName from "../../../../core/types/common-entities/user-name";
+import MachineUserDelegation from "../../domain/entities/machine-user-delegation";
 import User from "../../domain/entities/user";
 import UserDataUpdate from "../../domain/entities/user-data-update";
 import UserManagingRemoteDataSource from "./user-managing-remote-data-source";
@@ -67,6 +68,24 @@ class TractianApiUserManagingRemoteDataSource
   // Ele só retorna true, pois caso o request falhe, ele levanta um erro, que é tratado pelo repository
   updateUserValues = async (update: UserDataUpdate): Promise<boolean> => {
     await this.tractianApi.instance.patch(`users/${update.id}`, update);
+    return true;
+  };
+
+  getMachinesAvaliableForUser = async (
+    user: User
+  ): Promise<MachineHeader[]> => {
+    const allAssets = await this.tractianApi.getAllAssetsResponse();
+    const filteredAssets: MachineHeader[] = allAssets.filter(
+      (item) => item.companyId === user.companyId && item.unitId === user.unitId
+    );
+    return filteredAssets;
+  };
+
+  delegateUserForMachine = async (
+    delegation: MachineUserDelegation
+  ): Promise<boolean> => {
+    this.tractianApi.machineDelegation[delegation.machineId] =
+      delegation.userId;
     return true;
   };
 }

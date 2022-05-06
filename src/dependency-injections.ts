@@ -12,6 +12,8 @@ import SearchAllMachines from "./features/machine-managing/domain/use-cases/sear
 import UpdateMachineValues from "./features/machine-managing/domain/use-cases/update-machine-values";
 import TractianApiUserManagingRemoteDataSource from "./features/user-managing/data/data-sources/tractian-api-user-managing-remote-data-source";
 import UserManagingRepositoryImpl from "./features/user-managing/data/repositories/user-managing-repository-impl";
+import DelegateUserForMachine from "./features/user-managing/domain/use-cases/delegate-user-for-machine";
+import GetMachinesAvaliableForUser from "./features/user-managing/domain/use-cases/get-machines-avaliable-for-user";
 import GetUserData from "./features/user-managing/domain/use-cases/get-user-data";
 import SearchAllUsers from "./features/user-managing/domain/use-cases/search-all-users";
 import UpdateUserValues from "./features/user-managing/domain/use-cases/update-user-values";
@@ -59,6 +61,8 @@ container.register({
   getUserData: asClass(GetUserData).singleton(),
   searchAllUsers: asClass(SearchAllUsers).singleton(),
   updateUserValues: asClass(UpdateUserValues).singleton(),
+  getMachinesAvaliableForUser: asClass(GetMachinesAvaliableForUser).singleton(),
+  delegateUserForMachine: asClass(DelegateUserForMachine).singleton(),
 });
 
 export { container };
