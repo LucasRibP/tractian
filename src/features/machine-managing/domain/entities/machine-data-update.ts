@@ -1,6 +1,5 @@
 interface MachineDataUpdate {
   id: number;
-  sensors?: string[];
   model?: string;
   status?: string;
   healthscore?: number;
