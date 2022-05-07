@@ -36,10 +36,10 @@ A primeira coisa que eu fiz foi dividir as demandas do projeto em "Features", ca
   - Modificar dados de uma empresa.
   - Modificar dados de uma unidade.
 - Gerenciar dados de usuários:
--   Buscar entre todos os usuários.
--   Mostrar detalhes de um usuário.
--   Modificar dados de um usuário.
--   Delegar maquinas para usuários.
+  - Buscar entre todos os usuários.
+  - Mostrar detalhes de um usuário.
+  - Modificar dados de um usuário.
+  - Delegar maquinas para usuários.
 
 ## Arquitetura
 
